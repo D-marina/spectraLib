@@ -1,2 +1,3 @@
 # spectraLib
  
+biblioteca para TFG
