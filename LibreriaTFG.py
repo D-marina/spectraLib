@@ -225,3 +225,41 @@ def Solution2D(m,p,Nq,f1,f2):
     U=np.linalg.solve(A,B)
     
     return U
+
+def MatrixAux2D(m,p,Nq):
+    
+    M=MatrixMassGlobal1D(m,p,Nq)
+    A=np.zeros(((m*p+1)*(m*p+1),(m*p+1)*(m*p+1)))
+    
+    for k1 in range(0,(m*p+1)*(m*p+1)):
+        i1,j1=Index(k1,m*p)
+        for k2 in range(0,(m*p+1)*(m*p+1)):
+            i2,j2=Index(k2,m*p)
+            A[k1][k2]=M[i1][i2]*M[j1][j2]
+                        
+    return A
+
+def MatrixCalor2D(m,p,Nq,c,tau):
+
+    A=MatrixGlobal2D(m,p,Nq)
+    M=MatrixAux2D(m,p,Nq)
+    Aux=M+A*c*tau
+                        
+    return Aux
+
+def VectorCalor2D(m,p,Nq,U):
+    
+    U_aux=np.array(U).reshape((m*p+1)**2)
+    M=MatrixAux2D(m,p,Nq)
+    Aux=np.matmul(M,U_aux)
+                        
+    return Aux
+
+def SolutionCalor2D(m,p,Nq,c,h,U0):
+    
+    A=MatrixCalor2D(m,p,Nq,c,h)
+    B=VectorCalor2D(m,p,Nq,U0)
+
+    U=np.linalg.solve(A,B)
+    
+    return U
