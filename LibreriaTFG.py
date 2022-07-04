@@ -65,9 +65,7 @@ class TrapecioCompuesto(Cuadrature): #están considerados los extremos(-1,1)
         return "Nodos: %s \nPesos: %s " %(self.nodes,self.weight)
 
 def BasisFunctions(N):
-    '''
-    Crea las funciones bases de grado N y devuelve un vector con las funciones bases y otro con sus derivadas
-    '''
+
     x = sp.symbols('x')
     xvals = chop(Lobato(N,-1,1).getNodes())
     
@@ -83,9 +81,7 @@ def BasisFunctions(N):
     return (phi,difphi)
 
 def MatrixDiffusionLocal(m,p,Nq,num_interval):
-    '''
-    Función que construye la matriz local en una dimensión que integra la derivada de funciones bases en su respectivo intervalo
-    '''
+
     intervals=np.linspace(-1,1,m+1)
     A=np.zeros((p+1, p+1))
     a=intervals[num_interval-1]
@@ -101,9 +97,7 @@ def MatrixDiffusionLocal(m,p,Nq,num_interval):
     return A
 
 def MatrixMassLocal(m,p,Nq,num_interval):
-    '''
-    Función que construye la matriz local en una dimensión que integra las funciones bases en su respectivo intervalo
-    '''
+
     intervals=np.linspace(-1,1,m+1)
     A=np.zeros((p+1, p+1))
     a=intervals[num_interval-1]
@@ -118,9 +112,7 @@ def MatrixMassLocal(m,p,Nq,num_interval):
     return A
 
 def VectorIndepLocal(m,p,Nq,num_interval,f): 
-    '''
-    Función que construye el vector independiente en su respectivo intervalo de la función unidimensional y la funciones bases
-    '''
+
     intervals=np.linspace(-1,1,m+1)
     A=np.zeros(p+1)
     a=intervals[num_interval-1]
@@ -176,10 +168,7 @@ def Solution1D(N_vals,p, Nq, f, cond1, cond2):
     return np.linalg.solve(AG,BG)
 
 def Index(k,m):
-    '''
-    A partir de un número k (nodo k) obtenemos los índices (i,j) para saber a qué posición nos referimos
-    Con la variable m indicamos el número de filas y columnas de la matriz total(consideramos matrices cuadradas)
-    '''
+
     i=k%(m+1)
     j=k//(m+1)
     return (i,j)
@@ -211,6 +200,7 @@ def VectorIndepGlobal2D(m,p,Nq,f1,f2):
     return B2
 
 def Block2D(A,B,m,p):
+
     for k in range(0,(m*p+1)**2):
         (i,j)=Index(k,p*m)
         if (i==0 or i==p*m or j==0 or j==p*m):
@@ -219,6 +209,7 @@ def Block2D(A,B,m,p):
     return (A,B)
 
 def Solution2D(m,p,Nq,f1,f2):
+
     A=MatrixGlobal2D(m,p,Nq)
     B=VectorIndepGlobal2D(m,p,Nq,f1,f2)
     A,B=Block2D(A,B,m,p)
