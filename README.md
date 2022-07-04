@@ -1,4 +1,5 @@
-TFG: Simulación numérica de EDP sobre autómatas celulares
+TFG: Simulación numérica de EDP sobre autómatas celulares.
+Creado por Isabel María Altamirano Melero.
 
 En esta ubicación se encuentra el archivo de Python del TFG y la librería con todas 
 las funciones creadas. El archivo de Python está compuesto por 3 partes, en primer 
