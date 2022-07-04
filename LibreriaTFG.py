@@ -255,9 +255,9 @@ def VectorCalor2D(m,p,Nq,U):
                         
     return Aux
 
-def SolutionCalor2D(m,p,Nq,c,h,U0):
+def SolutionCalor2D(m,p,Nq,c,tau,U0):
     
-    A=MatrixCalor2D(m,p,Nq,c,h)
+    A=MatrixCalor2D(m,p,Nq,c,tau)
     B=VectorCalor2D(m,p,Nq,U0)
 
     U=np.linalg.solve(A,B)
